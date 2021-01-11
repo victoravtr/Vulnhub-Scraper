@@ -1,4 +1,5 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 
 url = "https://www.vulnhub.com"
@@ -22,10 +23,11 @@ def getPage(url):
 def getNumberPages(url):
     # If we request a large number like 100 we get the last page
     # and with that, we can get the total number.
-    page = getPage(url + "/?page=100")
+    page = getPage(url)
     soup = BeautifulSoup(page.content, 'html.parser')
-    number = int(soup.find("a", {"class": "page-link"})["href"][-2:]) + 1
-    return number
+    number = soup.find("a", {"class": "page-link"})["href"]
+    return re.findall('\d+', number)
+
 
 
 # Get list of machines in a certain page
@@ -42,8 +44,8 @@ def getMachines(url):
 def getDescription(url):
     page = getPage(url)
     soup = BeautifulSoup(page.content, 'html.parser')
-    machines = soup.find("div", {"id": "description"}).text
-    print(machines)
+    return soup.find("div", {"id": "description"}).text
+    
 
 def main():
     if not checkSite(url):
@@ -54,13 +56,13 @@ def main():
         print("You need to set a search term")
         exit()
     print("Searching:", term)
-    number_pages = getNumberPages(url)
-    for i in range(1, number_pages + 1):
-        machineList = getMachines(url + "?page=" + str(i))
-        for machine in machineList:
-            description = getDescription(machine)
-            if term in description:
-                
+    
+    # Hacemos una busqueda inicial
+    # Con esa busqueda optenemos el numero total de paginas
+    number_pages = getNumberPages(url + "/?page=110&q=" + term)
+    print(number_pages)
+    # De cada pagina cogemos la lista de maquinas
+    # Por cada maquina buscamos descripcion y url y lo guardamos en un archivo
 
 
 if __name__ == "__main__":
