@@ -75,6 +75,7 @@ def remove_junk(text):
 
 
 def save_to_file(file_name, machines):
+    print("Saving results into: " + file_name)
     with open(file_name, 'w') as file:
         for machine in machines:
             description = get_description(machine)
