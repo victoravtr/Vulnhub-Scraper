@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "vulnhub-scraper"
+version = "1.0"
+description = "Python utility to scrape data from vulnhub.com"
+authors = ["victoravtr <victoravtr@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2.27.1"
+colorama = "^0.4.4"
+bs4 = "^0.0.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
