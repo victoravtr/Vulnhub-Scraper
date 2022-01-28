@@ -2,7 +2,7 @@
 
 # Vulnhub Scraper
 
-<img src="image.png">
+<img src="https://raw.githubusercontent.com/victoravtr/Vulnhub-Scraper/master/image.png">
 
 </div>
 
